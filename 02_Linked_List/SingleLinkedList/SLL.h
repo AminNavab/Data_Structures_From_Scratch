@@ -78,3 +78,119 @@ void SLL::insertAtEnd(int ele)
     }
     temp->next = newNode;
 }
+void SLL::insertAtPosition(int ele, int position)
+{
+    if (position < 1)
+    {
+        cout << "invalid position!! \n";
+        return;
+    }
+    if (position == 1)
+    {
+        insertAtBeginning(ele);
+        return;
+    }
+    Node *temp = head;
+    Node *newNode = new Node(ele);
+    for (int i = 1; temp != nullptr && i < position - 1; i++)
+    {
+        temp = temp->next;
+    }
+    if (temp == nullptr)
+    {
+        delete newNode;
+        return;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+void SLL::deleteAtBeginning()
+{
+    if (!head)
+    {
+        return;
+    }
+    Node *temp = head;
+    head = head->next;
+    temp = nullptr;
+    delete temp;
+}
+void SLL::deleteAtEnd()
+{
+    if (!head)
+    {
+        return;
+    }
+    if (head->next == nullptr)
+    {
+        delete head;
+        head = nullptr;
+        return;
+    }
+    Node *temp = head;
+    while (temp->next->next)
+    {
+        temp = temp->next;
+    }
+    delete temp->next;
+    temp->next = nullptr;
+}
+void SLL::deleteAtPosition(int position)
+{
+    if (!head)
+    {
+        return;
+    }
+    if (position < 1)
+    {
+        cout << "invalid position \n";
+        return;
+    }
+    if (position == 1)
+    {
+        deleteAtBeginning();
+        return;
+    }
+    Node *temp = head->next;
+    Node *pre = head;
+    int count = 1;
+    while (count < position - 1 || temp->next == nullptr)
+    {
+        count++;
+        temp = temp->next;
+        pre = pre->next;
+    }
+    pre->next = temp->next;
+    delete temp;
+}
+void SLL::clear()
+{
+    while (head)
+    {
+        deleteAtBeginning();
+    }
+}
+void SLL::sort()
+{
+    if (!head || !head->next)
+    {
+        return;
+    }
+    int size = length();
+    for (int i = 0; i < size - 1; i++)
+    {
+        Node *ptr1 = head;
+        Node *ptr2 = head->next;
+        for (int j = 0; j < size - i - 1; j++)
+        {
+            if (ptr1->data > ptr2->data)
+            {
+                int temp = ptr1->data;
+                ptr1->data = ptr2->data;
+                ptr2->data = temp;
+            }
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+    }
+}
