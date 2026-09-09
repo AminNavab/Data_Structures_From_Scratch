@@ -1,0 +1,21 @@
+# C++ build files
+*.o
+*.obj
+*.out
+*.exe
+
+# Build directories
+build/
+cmake-build-*/
+
+# Debug files
+*.dSYM/
+*.pdb
+
+# VS Code - personal settings
+.vscode/settings.json
+.vscode/launch.json
+
+# OS generated files
+.DS_Store
+Thumbs.db
