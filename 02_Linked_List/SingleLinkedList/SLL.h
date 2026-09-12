@@ -194,3 +194,81 @@ void SLL::sort()
         }
     }
 }
+void SLL::insertSorted(int ele)
+{
+    Node *temp = new Node(ele);
+    Node *ptr = head;
+    Node *pre = nullptr;
+    if (!head || head->data > ele)
+    {
+        head = temp;
+        head->next = ptr;
+        return;
+    }
+    while (ptr != nullptr && ptr->data < temp->data)
+    {
+        pre = ptr;
+        ptr = ptr->next;
+    }
+    pre->next = temp;
+    temp->next = ptr;
+}
+SLL SLL::intersect(SLL other)
+{
+    SLL res;
+    for (Node *ptr1 = head; ptr1; ptr1 = ptr1->next)
+    {
+        for (Node *ptr2 = other.head; ptr2; ptr2 = ptr2->next)
+        {
+            if (ptr1->data == ptr2->data)
+            {
+                res.insertSorted(ptr1->data);
+                break;
+            }
+        }
+    }
+    return res;
+}
+SLL SLL::intersect_for_sorted(SLL other)
+{
+    SLL res;
+    Node *ptr1 = head;
+    Node *ptr2 = other.head;
+    while (ptr1 != nullptr && ptr2 != nullptr)
+    {
+        if (ptr1->data == ptr2->data)
+        {
+            res.insertAtBeginning(ptr1->data);
+            ptr1 = ptr1->next;
+            ptr2 = ptr2->next;
+        }
+        else if (ptr1->data > ptr2->data)
+        {
+            ptr2 = ptr2->next;
+        }
+        else
+        {
+            ptr1 = ptr1->next;
+        }
+    }
+    return res;
+}
+void SLL::RemoveDup()
+{
+    Node *temp = nullptr;
+    Node *ptr = head;
+    if (!head)
+    {
+        return;
+    }
+    while (ptr->next)
+    {
+        if (ptr->data == ptr->next->data)
+        {
+            temp = ptr->next;
+            ptr->next = ptr->next->next;
+            delete temp;
+        }
+        ptr = ptr->next;
+    }
+}
