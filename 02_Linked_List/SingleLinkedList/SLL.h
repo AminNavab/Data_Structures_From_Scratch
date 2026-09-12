@@ -272,3 +272,81 @@ void SLL::RemoveDup()
         ptr = ptr->next;
     }
 }
+void SLL::RemoveDup_prime()
+{
+    Node *ptr1 = head;
+    Node *ptr2;
+    Node *pre;
+    while (ptr1)
+    {
+        ptr2 = ptr1->next;
+        pre = ptr1;
+        while (ptr2)
+        {
+            if (ptr2->data == ptr1->data)
+            {
+                pre->next = ptr2->next;
+                delete ptr2;
+                ptr2 = pre->next;
+            }
+            else
+            {
+                pre = ptr2;
+                ptr2 = ptr2->next;
+            }
+        }
+
+        ptr1 = ptr1->next;
+    }
+}
+bool SLL::search(int ele)
+{
+    Node *temp = head;
+    while (temp != nullptr)
+    {
+        if (temp->data == ele)
+        {
+            return true;
+        }
+        temp = temp->next;
+    }
+    return false;
+}
+void SLL::revers()
+{
+    Node *prev = nullptr;
+    Node *current = head;
+    Node *next = nullptr;
+    while (current != nullptr)
+    {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    head = prev;
+}
+void SLL::sorting()
+{
+    if (head == nullptr || head->next == nullptr)
+    {
+        return;
+    }
+    bool swapped;
+    Node *ptr;
+    Node *last = nullptr;
+    do
+    {
+        swapped = false;
+        ptr = head;
+        while (ptr->next != last)
+        {
+            if (ptr->data > ptr->next->data)
+            {
+                swapped = true;
+            }
+            ptr = ptr->next;
+        }
+        last = ptr;
+    } while (swapped);
+}
